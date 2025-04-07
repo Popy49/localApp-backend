@@ -1,0 +1,38 @@
+services:
+  app:
+    container_name: node_local_back
+    image: node:22-alpine
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./src:/app/src
+      - /app/node_modules
+    ports:
+      - '3001:3001'
+    depends_on:
+      - db
+    networks:
+      - dev
+    command: npm run start:debug
+
+  db:
+    container_name: postgres_local
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_NAME=postgres
+      - POSTGRES_DB=postgres
+    volumes:
+      - db-local:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    networks:
+      - dev
+
+networks:
+  dev:
+
+volumes:
+  db-local:
