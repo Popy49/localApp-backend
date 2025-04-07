@@ -1,26 +1,34 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateStorageSpaceDto } from './dto/create-storage_space.dto';
 import { UpdateStorageSpaceDto } from './dto/update-storage_space.dto';
+import { StorageSpace } from './entities/storage_space.entity';
 
 @Injectable()
 export class StorageSpacesService {
+  constructor(
+    @InjectRepository(StorageSpace)
+    private storageSpaceRepository: Repository<StorageSpace>,
+  ) {}
+
   create(createStorageSpaceDto: CreateStorageSpaceDto) {
-    return 'This action adds a new storageSpace';
+    return this.storageSpaceRepository.save(createStorageSpaceDto);
   }
 
   findAll() {
-    return `This action returns all storageSpaces`;
+    return this.storageSpaceRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} storageSpace`;
+    return this.storageSpaceRepository.findOneBy({ id });
   }
 
   update(id: number, updateStorageSpaceDto: UpdateStorageSpaceDto) {
-    return `This action updates a #${id} storageSpace`;
+    return this.storageSpaceRepository.update(id, updateStorageSpaceDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} storageSpace`;
+  async remove(id: number): Promise<void> {
+    await this.storageSpaceRepository.delete(id);
   }
 }

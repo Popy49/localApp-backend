@@ -6,7 +6,7 @@ export class UpdateStorageSpaceDto extends PartialType(CreateStorageSpaceDto) {
   description: string;
   location: string;
   price: number;
-  size: number;
+  size: string;
   availableFrom: Date;
   availableTo: Date;
   photos: File[];

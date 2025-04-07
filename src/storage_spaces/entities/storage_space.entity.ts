@@ -25,7 +25,7 @@ export class StorageSpace {
   description: string;
 
   @Column()
-  photos: string[];
+  photos: File[];
 
   // Relation ManyToOne avec Owner
   @ManyToOne(() => Owner, (owner) => owner.storageSpace)

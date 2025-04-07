@@ -13,4 +13,16 @@ export class User {
 
   @Column({ default: true })
   isActive: boolean;
+
+  @Column({ unique: true })
+  email: string;
+
+  @Column()
+  password: string;
+
+  @Column({ default: false })
+  isVerified: boolean;
+
+  @Column({ default: false })
+  isAdmin: boolean;
 }
