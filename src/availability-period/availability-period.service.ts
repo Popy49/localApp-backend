@@ -1,26 +1,36 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateAvailabilityPeriodDto } from './dto/create-availability-period.dto';
 import { UpdateAvailabilityPeriodDto } from './dto/update-availability-period.dto';
+import { AvailabilityPeriod } from './entities/availability-period.entity';
 
 @Injectable()
 export class AvailabilityPeriodService {
+  constructor(
+    @InjectRepository(AvailabilityPeriod)
+    private availabilityPeriodRepository: Repository<AvailabilityPeriod>,
+  ) {}
   create(createAvailabilityPeriodDto: CreateAvailabilityPeriodDto) {
-    return 'This action adds a new availabilityPeriod';
+    return this.availabilityPeriodRepository.save(createAvailabilityPeriodDto);
   }
 
   findAll() {
-    return `This action returns all availabilityPeriod`;
+    return this.availabilityPeriodRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} availabilityPeriod`;
+    return this.availabilityPeriodRepository.findOneBy({ id });
   }
 
   update(id: number, updateAvailabilityPeriodDto: UpdateAvailabilityPeriodDto) {
-    return `This action updates a #${id} availabilityPeriod`;
+    return this.availabilityPeriodRepository.update(
+      id,
+      updateAvailabilityPeriodDto,
+    );
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} availabilityPeriod`;
+  async remove(id: number): Promise<void> {
+    await this.availabilityPeriodRepository.delete(id);
   }
 }

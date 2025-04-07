@@ -1,15 +1,29 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { StorageSpacesService } from './storage_spaces.service';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { CreateStorageSpaceDto } from './dto/create-storage_space.dto';
 import { UpdateStorageSpaceDto } from './dto/update-storage_space.dto';
+import { StorageSpacesService } from './storage_spaces.service';
 
 @Controller('storage-spaces')
 export class StorageSpacesController {
   constructor(private readonly storageSpacesService: StorageSpacesService) {}
 
-  @Post()
-  create(@Body() createStorageSpaceDto: CreateStorageSpaceDto) {
-    return this.storageSpacesService.create(createStorageSpaceDto);
+  @Post(':ownerId')
+  create(
+    @Param('ownerId') ownerId: number,
+    @Body() createStorageSpaceDto: CreateStorageSpaceDto,
+  ) {
+    return this.storageSpacesService.create({
+      ownerId: ownerId,
+      ...createStorageSpaceDto,
+    });
   }
 
   @Get()
@@ -23,7 +37,10 @@ export class StorageSpacesController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateStorageSpaceDto: UpdateStorageSpaceDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateStorageSpaceDto: UpdateStorageSpaceDto,
+  ) {
     return this.storageSpacesService.update(+id, updateStorageSpaceDto);
   }
 

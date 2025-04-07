@@ -1,7 +1,8 @@
 import { StorageSpace } from 'src/storage_spaces/entities/storage_space.entity';
 import { User } from 'src/users/entities/user.entity';
-import { Column, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
+@Entity()
 export class Reservation {
   @PrimaryGeneratedColumn()
   id: number;
@@ -15,7 +16,7 @@ export class Reservation {
   @ManyToOne(() => StorageSpace, (storage) => storage.reservations, {
     onDelete: 'CASCADE',
   })
-  storage: StorageSpace;
+  storageSpace: StorageSpace;
 
   @ManyToOne(() => User)
   user: User;

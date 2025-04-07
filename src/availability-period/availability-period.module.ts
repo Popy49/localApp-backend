@@ -1,8 +1,11 @@
 import { Module } from '@nestjs/common';
-import { AvailabilityPeriodService } from './availability-period.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AvailabilityPeriodController } from './availability-period.controller';
+import { AvailabilityPeriodService } from './availability-period.service';
+import { AvailabilityPeriod } from './entities/availability-period.entity';
 
 @Module({
+  imports: [TypeOrmModule.forFeature([AvailabilityPeriod])],
   controllers: [AvailabilityPeriodController],
   providers: [AvailabilityPeriodService],
 })

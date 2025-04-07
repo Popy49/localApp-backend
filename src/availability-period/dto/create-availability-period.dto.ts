@@ -1,1 +1,4 @@
-export class CreateAvailabilityPeriodDto {}
+export class CreateAvailabilityPeriodDto {
+  startDate: Date;
+  endDate: Date;
+}

@@ -4,8 +4,7 @@ export class CreateStorageSpaceDto {
   location: string;
   price: number;
   size: string;
-  availableFrom: Date;
-  availableTo: Date;
+  availablePeriodId: number;
   photos: File[];
   ownerId: number;
 }

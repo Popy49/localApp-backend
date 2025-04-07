@@ -17,6 +17,6 @@ export class Owner {
   user: User;
 
   // Relation OneToMany avec LocalSpace
-  @OneToMany(() => StorageSpace, (localSpace) => localSpace.owner)
+  @OneToMany(() => StorageSpace, (localSpace) => localSpace.id)
   storageSpace: StorageSpace[];
 }

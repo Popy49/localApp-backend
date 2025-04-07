@@ -1,7 +1,8 @@
-import { Owner } from 'src/owner/entities/owner.entity';
-import { User } from 'src/users/entities/user.entity';
-import { Column, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { AvailabilityPeriod } from 'src/availability-period/entities/availability-period.entity';
+import { Reservation } from 'src/reservations/entities/reservation.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
+@Entity()
 export class StorageSpace {
   @PrimaryGeneratedColumn()
   id: number;
@@ -16,20 +17,17 @@ export class StorageSpace {
   price: number;
 
   @Column()
-  availability: Date[];
-
-  @Column()
-  reservations: string[];
-
-  @Column()
   description: string;
 
-  @Column()
-  photos: File[];
+  // @Column()
+  // photos: File[];
 
-  // Relation ManyToOne avec Owner
-  @ManyToOne(() => Owner, (owner) => owner.storageSpace)
-  owner: Owner;
-  @JoinColumn({ name: 'host_id' }) // Indiquer que `host_id` est la clé étrangère
-  host: User;
+  @Column()
+  ownerId: number;
+
+  @OneToMany(() => Reservation, (reservations) => reservations.storageSpace)
+  reservations: Reservation[];
+
+  @OneToMany(() => AvailabilityPeriod, (availability) => availability.id)
+  availabilities: AvailabilityPeriod[];
 }
