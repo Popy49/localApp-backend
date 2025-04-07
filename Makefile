@@ -20,6 +20,8 @@ stop:
 	@echo "Come back soon if you want to make progress !"
 .PHONY: stop
 
+restart: stop start
+
 remove-containers:
 	 @${compose} down -v --rmi all --remove-orphans
 .PHONY: remove-containers
