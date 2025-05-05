@@ -1,6 +1,7 @@
 import { AvailabilityPeriod } from 'src/availability-period/entities/availability-period.entity';
+import { Owner } from 'src/owner/entities/owner.entity';
 import { Reservation } from 'src/reservations/entities/reservation.entity';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class StorageSpace {
@@ -11,7 +12,7 @@ export class StorageSpace {
   location: string;
 
   @Column()
-  size: string;
+  size: number;
 
   @Column()
   price: number;
@@ -22,9 +23,11 @@ export class StorageSpace {
   // @Column()
   // photos: File[];
 
-  @Column()
-  ownerId: number;
-
+  @ManyToOne(() => Owner, (owner) => owner.storageSpace, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'owner_id' }) // si tu veux nommer la colonne
+  owner: Owner;
   @OneToMany(() => Reservation, (reservations) => reservations.storageSpace)
   reservations: Reservation[];
 

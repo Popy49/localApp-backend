@@ -1,4 +1,3 @@
 export class CreateOwnerDto {
-  userId: number;
-  storageSpaceId: number;
+  user: { id: number}
 }
