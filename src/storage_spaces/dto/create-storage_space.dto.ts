@@ -3,9 +3,9 @@ export class CreateStorageSpaceDto {
   description: string;
   location: string;
   price: number;
-  size: string;
+  size: number;
   availablePeriodId: number;
-  photos: File[];
+  // photos: File[];
   ownerId: number;
 }
 // Assuming this is the ID of the user who owns the storage space

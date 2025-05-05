@@ -14,7 +14,18 @@ services:
       - db
     networks:
       - dev
-    command: npm run start:debug
+    environment:
+      SEED: ${SEED} 
+    env_file:
+      - .env
+    command: >
+      sh -c "
+        if [ \"$${SEED}\" = 'true' ]; then
+          echo '>> Running seed...' &&
+          npm run seed;
+        fi &&
+        npm run start:debug
+      "
 
   db:
     container_name: postgres_local

@@ -12,6 +12,8 @@ import { StorageSpace } from './storage_spaces/entities/storage_space.entity';
 import { StorageSpacesModule } from './storage_spaces/storage_spaces.module';
 import { User } from './users/entities/user.entity';
 import { UsersModule } from './users/users.module';
+import { AppDataSource } from './config/db.config';
+import { Owner } from './owner/entities/owner.entity';
 
 @Module({
   imports: [
@@ -20,14 +22,8 @@ import { UsersModule } from './users/users.module';
     ReservationsModule,
     PaymentsModule,
     TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'db',
-      port: 5432,
-      username: 'postgres',
-      password: 'postgres',
-      database: 'postgres',
-      entities: [User, AvailabilityPeriod, StorageSpace, Reservation],
-      synchronize: true,
+      ...AppDataSource.options,
+      entities: [User, Owner, AvailabilityPeriod, StorageSpace, Reservation],
     }),
     OwnerModule,
     AvailabilityPeriodModule,

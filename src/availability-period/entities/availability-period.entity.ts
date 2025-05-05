@@ -1,5 +1,4 @@
-import { StorageSpace } from 'src/storage_spaces/entities/storage_space.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class AvailabilityPeriod {
@@ -12,8 +11,8 @@ export class AvailabilityPeriod {
   @Column()
   endDate: Date; // Date de fin de la période de disponibilité
 
-  @ManyToOne(() => StorageSpace, (storage) => storage.availabilities, {
-    onDelete: 'CASCADE',
-  })
-  storageSpace: StorageSpace;
+  // @ManyToOne(() => StorageSpace, (storage) => storage.availabilities, {
+  //   onDelete: 'CASCADE',
+  // })
+  // storageSpace: StorageSpace;
 }
