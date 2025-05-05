@@ -8,6 +8,11 @@ install:
 	@echo "Let's go ! http://localhost:3000"
 .PHONY: install
 
+start-seed:
+	@echo "Starting project with seeding"
+	@SEED=true ${compose} up -d --build
+	@echo "Seeding done! http://localhost:3001"
+
 start:
 	@echo "Starting project"
 	@${compose} up -d
