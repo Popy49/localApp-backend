@@ -17,12 +17,27 @@ export class ReservationsService {
     ) {}
   
     async create(storageSpaceId: string, createReservationDto: CreateReservationDto, userId: string) {
-      // Vérifier si l'espace de stockage existe
+
+      //Verifier si l'utilisateur existe
+      const user = await this.storageSpaceRepo.findOne({
+        where: { id: Number(userId) }
+      });
+      if (!user) {
+        throw new NotFoundException('User not found');
+      }
+      // Vérifier si l'utilisateur est le propriétaire de l'espace de stockage
       const storageSpace = await this.storageSpaceRepo.findOne({
-        where: { id: Number(storageSpaceId) }
+        where: { id: Number(storageSpaceId), owner: { id: Number(userId) } }
       });
       if (!storageSpace) {
-        throw new NotFoundException('Storage space not found');
+        throw new NotFoundException('Storage space not found or user is not the owner');
+      }
+      // Vérifier si l'utilisateur a déjà réservé cet espace de stockage
+      const existingUserReservation = await this.reservationRepo.findOne({
+        where: { storageSpace: { id: Number(storageSpaceId) }, user: { id: Number(userId) } }
+      });
+      if (existingUserReservation) {
+        throw new BadRequestException('User has already reserved this storage space');
       }
     
       // Vérifier la disponibilité de l'espace de stockage (si besoin)

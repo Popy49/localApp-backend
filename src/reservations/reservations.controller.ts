@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Req } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, Param, Patch, Post, Req } from '@nestjs/common';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { ReservationsService } from './reservations.service';
@@ -13,7 +13,13 @@ export class ReservationsController {
     @Body() createReservationDto: CreateReservationDto,
     @Req() req: any  // Récupérer l'utilisateur connecté depuis le JWT
   ) {
-    const userId = req.user.id;  // Assumer que le middleware JWT ajoute l'utilisateur connecté
+    console.log("req", req);
+    const userId = req?.userId;  // Assumer que le middleware JWT ajoute l'utilisateur connecté
+
+    if (!userId) {
+      throw new BadRequestException('User not authenticated');
+    }
+
     return this.reservationsService.create(storageSpaceId, createReservationDto, userId);
   }
   @Get()
