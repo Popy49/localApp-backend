@@ -18,6 +18,7 @@ export default class UserFactory extends Factory<User> {
       updated_at: faker.date.past(),
       created_at: faker.date.past(),
       isVerified: faker.datatype.boolean(),
+      owner: null
    
     };
   }

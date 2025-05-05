@@ -1,4 +1,3 @@
-import { AvailabilityPeriod } from 'src/availability-period/entities/availability-period.entity';
 import { Owner } from 'src/owner/entities/owner.entity';
 import { Reservation } from 'src/reservations/entities/reservation.entity';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
@@ -31,6 +30,6 @@ export class StorageSpace {
   @OneToMany(() => Reservation, (reservations) => reservations.storageSpace)
   reservations: Reservation[];
 
-  @OneToMany(() => AvailabilityPeriod, (availability) => availability.id)
-  availabilities: AvailabilityPeriod[];
+  // @OneToMany(() => AvailabilityPeriod, (availability) => availability.id)
+  // availabilities: AvailabilityPeriod[];
 }

@@ -1,15 +1,16 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateOwnerDto } from './dto/create-owner.dto';
 import { UpdateOwnerDto } from './dto/update-owner.dto';
-import { InjectRepository } from '@nestjs/typeorm';
 import { Owner } from './entities/owner.entity';
-import { Repository } from 'typeorm';
 
 @Injectable()
 export class OwnerService {
     constructor(
       @InjectRepository(Owner)
       private ownersRepository: Repository<Owner>,
+ 
     ) {}
   
   create(createOwnerDto: CreateOwnerDto) {
@@ -31,4 +32,7 @@ export class OwnerService {
   remove(id: number) {
     return `This action removes a #${id} owner`;
   }
+
+
+
 }

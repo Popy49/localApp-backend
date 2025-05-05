@@ -1,6 +1,7 @@
 import { Exclude } from 'class-transformer';
 import { Owner } from 'src/owner/entities/owner.entity';
-import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Reservation } from 'src/reservations/entities/reservation.entity';
+import { Column, CreateDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity()
 export class User {
@@ -38,5 +39,8 @@ export class User {
 
   @OneToOne(() => Owner, owner => owner.user, { onDelete: 'CASCADE' })
   owner: Owner;
+
+  @OneToMany(() => Reservation, (reservation) => reservation.user)
+  reservations: Reservation[];
 
 }

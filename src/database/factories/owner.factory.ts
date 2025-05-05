@@ -1,9 +1,7 @@
-import { faker } from "@faker-js/faker/.";
 import { FactorizedAttrs, Factory } from "@jorgebodega/typeorm-factory";
 import { AppDataSource } from "src/config/db.config";
 import { Owner } from "src/owner/entities/owner.entity";
 import UserFactory from "./user.factory";
-import StorageSpacesFactory from "./storageSpaces.factory";
 
 export default class OwnerFactory extends Factory<Owner> {
     protected entity = Owner;

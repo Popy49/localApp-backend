@@ -14,11 +14,11 @@ export class Owner {
   id: number;
 
   // Relation OneToOne avec User
-  @OneToOne(() => User, { eager: true })
+  @OneToOne(() => User,{ eager: true })
   @JoinColumn() // Indique que la clé étrangère est ici
   user: User;
 
   // Relation OneToMany avec LocalSpace
-  @OneToMany(() => StorageSpace, (localSpace) => localSpace.id)
+  @OneToMany(() => StorageSpace, (localSpace) => localSpace.owner, { eager: true })
   storageSpace: StorageSpace[];
 }
