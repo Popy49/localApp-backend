@@ -14,6 +14,7 @@ import { User } from './users/entities/user.entity';
 import { UsersModule } from './users/users.module';
 import { AppDataSource } from './config/db.config';
 import { Owner } from './owner/entities/owner.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { Owner } from './owner/entities/owner.entity';
     }),
     OwnerModule,
     AvailabilityPeriodModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
