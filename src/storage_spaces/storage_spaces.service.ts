@@ -21,7 +21,18 @@ export class StorageSpacesService {
   }
 
   findOne(id: number) {
-    return this.storageSpaceRepository.findOneBy({ id });
+    return this.storageSpaceRepository.findOne({
+      where: { id: id },
+      relations: ['photos'],
+    }).then(storage => {
+      return {
+        ...storage,
+        photos: storage.photos.map(photo => ({
+          url: photo.url,
+          filename: photo.filename,
+          created_at: photo.created_at,
+        })),
+      }});
   }
 
   update(id: number, updateStorageSpaceDto: UpdateStorageSpaceDto) {

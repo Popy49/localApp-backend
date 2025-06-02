@@ -1,5 +1,6 @@
 import { Owner } from "src/owner/entities/owner.entity";
 import { StorageSpace } from "src/storage_spaces/entities/storage_space.entity";
+import { StorageSpacesImage } from "src/storage_spaces_image/entities/storage_spaces_image.entity";
 import { User } from "src/users/entities/user.entity";
 import { DataSource } from "typeorm";
 
@@ -11,7 +12,7 @@ export const AppDataSource = new DataSource({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     entities: [
-       User, Owner, StorageSpace
+       User, Owner, StorageSpace, StorageSpacesImage
     ],
     synchronize: process.env.DB_SYNC === 'true',
     logging: process.env.DB_LOGGING === 'true',

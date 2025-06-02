@@ -14,6 +14,7 @@ export default class StorageSpacesFactory extends Factory<StorageSpace> {
         size: faker.number.int({ min: 1, max: 100 }),
         description: faker.lorem.paragraph(),
         owner: null, // Vous pouvez définir une valeur par défaut ou la laisser à null
+        photos: [],
         // reservations: [],
         // availabilities: [],
 
