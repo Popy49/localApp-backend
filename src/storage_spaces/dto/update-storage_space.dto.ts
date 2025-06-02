@@ -9,6 +9,5 @@ export class UpdateStorageSpaceDto extends PartialType(CreateStorageSpaceDto) {
   size: number;
   availableFrom: Date;
   availableTo: Date;
-  photos: File[];
   ownerId: number; // Assuming this is the ID of the user who owns the storage space
 }
